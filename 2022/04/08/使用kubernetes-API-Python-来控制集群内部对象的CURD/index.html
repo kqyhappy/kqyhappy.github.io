@@ -43,7 +43,7 @@
     
 
     <div class="post-md">
-        <h2 id="使用kubernetes-API-Python-来控制集群内部对象的CURD"><a href="#使用kubernetes-API-Python-来控制集群内部对象的CURD" class="headerlink" title="使用kubernetes API(Python)来控制集群内部对象的CURD"></a>使用kubernetes API(Python)来控制集群内部对象的CURD</h2><p>写在前面：依旧是疫情远程实验室中，不知道为什么我的kubernetes集群突然集体更换了ip地址，真的很诡异desu…重新配集群的话我会想死，最后使用了一个基于Go语言的二进制一键离线部署安装工具sealos，超级方便，基本上只要指定三个节点的地址，就可以自动配置了，不过缺点是我的集群似乎只能使用root用户来进行操作（可能是前置的一些设置没有设置）。</p>
+        <p>写在前面：依旧是疫情远程实验室中，不知道为什么我的kubernetes集群突然集体更换了ip地址，真的很诡异desu…重新配集群的话我会想死，最后使用了一个基于Go语言的二进制一键离线部署安装工具sealos，超级方便，基本上只要指定三个节点的地址，就可以自动配置了，不过缺点是我的集群似乎只能使用root用户来进行操作（可能是前置的一些设置没有设置）。</p>
 <p>sealos地址：<a target="_blank" rel="noopener" href="https://github.com/fanux/sealos">https://github.com/fanux/sealos</a></p>
 <p>使用sealos时三台虚拟机上要开启ssh服务，通过以下命令安装并且开放权限（我的系统是ubuntu20.04）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install ssh</span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 PermitRootLogin = <span class="built_in">yes</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">restart ssh 服务</span></span><br></pre></td></tr></table></figure>
