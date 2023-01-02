@@ -10,8 +10,8 @@ http://example.com/category/index.html
 http://example.com/tag/index.html
 http://example.com/
 http://example.com/tags/life/
-http://example.com/tags/hexo/
-http://example.com/tags/kubernetes/
 http://example.com/tags/reading-record/
+http://example.com/tags/kubernetes/
+http://example.com/tags/hexo/
 http://example.com/categories/personal/
 http://example.com/categories/public/

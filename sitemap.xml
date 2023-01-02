@@ -108,7 +108,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/hexo/</loc>
+    <loc>http://example.com/tags/reading-record/</loc>
     <lastmod>2023-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -122,7 +122,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/reading-record/</loc>
+    <loc>http://example.com/tags/hexo/</loc>
     <lastmod>2023-01-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
