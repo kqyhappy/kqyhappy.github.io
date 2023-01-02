@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="lcy">
+
+
+    <meta name="subtitle" content="v1">
+
+
+    <meta name="description" content="学习/科研/生活/阅读">
+
+
+
+<title>k8s-如何将python项目部署成service | lcy&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/image/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Lcy&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Lcy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">k8s-如何将python项目部署成service</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">lcy</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">三月 24, 2022&nbsp;&nbsp;16:26:24</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>毕业设计需要设计一个kubernetes的系统，寒假前在实验室的电脑上搭建了k8s的集群，但是寒假后回来不知道为什么集群失效了。。重新配置又花了很久时间，正式开始推进毕设大概两周，主要做的工作是把图片识别的python项目部署到了k8s的集群上（顺便可视化了一下），看教材其实还好，但是自己实现起来还是花了很久跑通，在此记录一下步骤。</p>
+<h3 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h3><table>
+<thead>
+<tr>
+<th>主机ip</th>
+<th>名称</th>
+<th>系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.1.129</td>
+<td>k8s-master01</td>
+<td>ubuntu</td>
+</tr>
+<tr>
+<td>192.168.1.130</td>
+<td>k8s-node01</td>
+<td>ubuntu</td>
+</tr>
+<tr>
+<td>192.168.1.131</td>
+<td>k8s-node02</td>
+<td>ubuntu</td>
+</tr>
+</tbody></table>
+<h3 id="Docker-image的创建"><a href="#Docker-image的创建" class="headerlink" title="Docker image的创建"></a>Docker image的创建</h3><p>kubernetes本质上来说还是一个管理dokcer的工具，因此首先需要制作Dockerfile把我们的python项目制作成镜像，我使用了winscp把python项目文件夹复制到了虚拟机上，进入该目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi Dockerfile # 创建Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p>Dockerfile的内容如下</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.8</span>-slim-buster <span class="comment"># 拉取基础镜像</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app <span class="comment"># 设置容器内的工作目录，和容器外无关</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt requirements.txt <span class="comment"># 设置依赖包，由于实验环境用到了torch包，很大，创建第一个镜像的时候用了特别久</span></span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip3 install -r requirements.txt <span class="comment"># 下载依赖包</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . . <span class="comment"># 把python项目内的所有文件复制到docker镜像中 </span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>,<span class="string">&quot;test.py&quot;</span>] <span class="comment"># 容器执行的命令，需要是一个不断执行的命令，不然容器会反复创建运行，并且报错</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8888</span> <span class="comment"># 暴露8888端口，我在后续的python代码中又暴露了一个端口，直接在yaml文件里设置了，也成功了，貌似这里不用设置</span></span><br></pre></td></tr></table></figure>
+
+<p>输入：wq保存并且退出，输入以下命令，创建镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t lcy200077/app:v1 .</span><br></pre></td></tr></table></figure>
+
+<p>出现successful提示后，输入以下命令就可以看见多了一个名称为 <em>lcy200077&#x2F;app</em> 的镜像，版本是v1</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<h3 id="上传镜像至中央仓库"><a href="#上传镜像至中央仓库" class="headerlink" title="上传镜像至中央仓库"></a>上传镜像至中央仓库</h3><p>成功创建 <em>lcy200077&#x2F;app</em> 镜像后，下一步是把docker镜像上传至中央仓库，这一步的前提是需要在<a target="_blank" rel="noopener" href="https://registry.hub.docker.com/">DockerHub</a>上注册账号，非常便捷，上传后就可以随时随地拉取</p>
+<p>注意在上传镜像时，dokcer镜像的名称必须是 <em>username&#x2F;xxx</em> ，其中username是个人在<a target="_blank" rel="noopener" href="https://registry.hub.docker.com/">DockerHub</a>上的用户名，xxx是镜像的名字，可以任意</p>
+<p>第一步是在ubuntu虚拟机上登录dockerhub的账号，输入以下命令，出现对应提示后输入用户名和密码，若成功，会提示success</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br></pre></td></tr></table></figure>
+
+<p>在build该镜像的虚拟机上执行以下命令，将镜像push到中央仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push lcy200077/app:v1</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写YAML文件与创建service服务"><a href="#编写YAML文件与创建service服务" class="headerlink" title="编写YAML文件与创建service服务"></a>编写YAML文件与创建service服务</h3><p>服务可以通过yaml文件在master节点上使用以下命令创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f xxx.yaml</span><br></pre></td></tr></table></figure>
+
+<p>我的实验环境中，每一个node节点跑一个指定的docker容器，master节点的负责负载均衡的算法调配，以下yaml文件以node01节点上部署的服务为例子（实际上我对于yaml文件的写法只知道个大概）</p>
+<p>其中replicas指定了容器的数量，image指定了拉取的镜像，nodeName指定了跑在哪个节点上，如果不确定节点名称可以通过 <em>kubectl get nodes</em> 命令在master节点上查看，containerPort指定了容器暴露的端口，我的两个端口一个用于收取信息一个用于发送信息，连接方式都是TCP，service部分的type指定了服务向外界暴露的方式，即通过端口nodePort，指定端口30026对应容器端口8888，指定端口30027对应端口8889。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-python-app</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">my-python</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">my-python</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">my-python</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">nodeName:</span> <span class="string">k8s-node01</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">my-python</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">lcy200077/app:v1</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8888</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8889</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-python-app</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">my-python</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8888</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30026</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">81</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8889</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30027</span></span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令部署服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f app.yaml</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令查看部署的服务，若状态是running，就是运行成功，可以通信了~</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get service / kubectl get svc # 查看部署成功的服务，会显示my-python-xxxx，以及端口</span><br><span class="line">kubectl get pod / kubectl get po # 查看部署的pod，一个pod内是一个容器</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令查看pod的状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe po my-python-xxx #最后一个为pod的名字</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>lcy</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%88%90service/">http://example.com/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%88%90service/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/kubernetes/"># kubernetes</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/">使用kubernetes API(Python)来控制集群内部对象的CURD</a>
+            
+            
+            <a class="next" rel="next" href="/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">hexo-command</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© lcy | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

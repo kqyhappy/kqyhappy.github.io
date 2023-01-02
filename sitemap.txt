@@ -1,0 +1,17 @@
+http://example.com/2023/01/01/my-2022/
+http://example.com/2022/12/27/2022-12/
+http://example.com/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/
+http://example.com/2022/12/28/2022-read-record/
+http://example.com/about/index.html
+http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/
+http://example.com/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/
+http://example.com/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%88%90service/
+http://example.com/category/index.html
+http://example.com/tag/index.html
+http://example.com/
+http://example.com/tags/life/
+http://example.com/tags/hexo/
+http://example.com/tags/kubernetes/
+http://example.com/tags/reading-record/
+http://example.com/categories/personal/
+http://example.com/categories/public/
