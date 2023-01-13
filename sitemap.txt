@@ -1,5 +1,5 @@
-http://example.com/2022/12/27/2022-12/
 http://example.com/2023/01/01/my-2022/
+http://example.com/2022/12/27/2022-12/
 http://example.com/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/
 http://example.com/2022/12/28/2022-read-record/
 http://example.com/about/index.html
@@ -9,9 +9,9 @@ http://example.com/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%
 http://example.com/category/index.html
 http://example.com/tag/index.html
 http://example.com/
-http://example.com/tags/hexo/
 http://example.com/tags/life/
-http://example.com/tags/kubernetes/
 http://example.com/tags/reading-record/
-http://example.com/categories/public/
+http://example.com/tags/hexo/
+http://example.com/tags/kubernetes/
 http://example.com/categories/personal/
+http://example.com/categories/public/
