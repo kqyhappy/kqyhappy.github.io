@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="lcy">
+
+
+    <meta name="subtitle" content="v1">
+
+
+    <meta name="description" content="学习/科研/生活/阅读">
+
+
+
+<title>reading list | lcy&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/image/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Lcy&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Lcy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">reading list</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">lcy</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">一月 14, 2023&nbsp;&nbsp;20:14:36</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>[摘自网络]</p>
+<h3 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a><strong>Frameworks</strong></h3><ul>
+<li>[VLDB ‘20] PyTorch Distributed: Experiences on Accelerating Data Parallel Training</li>
+<li>[NeurIPS ‘19] PyTorch: An Imperative Style, High-Performance Deep Learning Library</li>
+<li>[OSDI ‘18] Ray: A Distributed Framework for Emerging AI Applications</li>
+<li>[OSDI ‘16] TensorFlow: A System for Large-Scale Machine Learning</li>
+</ul>
+<h3 id="Parallelism-amp-Distributed-Systems"><a href="#Parallelism-amp-Distributed-Systems" class="headerlink" title="Parallelism &amp; Distributed Systems"></a><strong>Parallelism &amp; Distributed Systems</strong></h3><ul>
+<li>[OSDI ‘22] Unity: Accelerating DNN Training Through Joint Optimization of Algebraic Transformations and Parallelization</li>
+<li>[EuroSys ‘22] Varuna: Scalable, Low-cost Training of Massive Deep Learning Models</li>
+<li>[SC ‘21’] Chimera: Efficiently Training Large-Scale Neural Networks with Bidirectional Pipelines</li>
+<li>[ICML ‘21] PipeTransformer: Automated Elastic Pipelining for Distributed Training of Large-scale Models</li>
+<li>[OSDI ‘20] A Unified Architecture for Accelerating Distributed DNN Training in Heterogeneous GPU&#x2F;CPU Clusters</li>
+<li>[ATC ‘20] HetPipe: Enabling Large DNN Training on (Whimpy) Heterogeneous GPU Clusters through Integration of Pipelined Model Parallelism and Data Parallelism</li>
+<li>[NeurIPS ‘19] GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism</li>
+<li>[SOSP ‘19] A Generic Communication Scheduler for Distributed DNN Training Acceleration</li>
+<li>[SOSP ‘19] PipeDream: Generalized Pipeline Parallelism for DNN Training</li>
+<li>[EuroSys ‘19] Parallax: Sparsity-aware Data Parallel Training of Deep Neural Networks</li>
+<li>[arXiv ‘18] Horovod: fast and easy distributed deep learning in TensorFlow</li>
+<li>[ATC ‘17] Poseidon: An Efficient Communication Architecture for Distributed Deep Learning on GPU Clusters</li>
+<li>[EuroSys ‘16] STRADS: A Distributed Framework for Scheduled Model Parallel Machine Learning</li>
+<li>[EuroSys ‘16] GeePS: Scalable Deep Learning on Distributed GPUs with a GPU-specialized Parameter Server</li>
+<li>[OSDI ‘14] Scaling Distributed Machine Learning with the Parameter Server</li>
+<li>[NIPS ‘12] Large Scale Distributed Deep Networks</li>
+</ul>
+<h3 id="GPU-Cluster-Management"><a href="#GPU-Cluster-Management" class="headerlink" title="GPU Cluster Management"></a><strong>GPU Cluster Management</strong></h3><ul>
+<li>[OSDI ‘22] Looking Beyond GPUs for DNN Scheduling on Multi-Tenant Clusters</li>
+<li>[NSDI ‘22] MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters</li>
+<li>[OSDI ‘21] Pollux: Co-adaptive Cluster Scheduling for Goodput-Optimized Deep Learning</li>
+<li>[NSDI ‘21] Elastic Resource Sharing for Distributed Deep Learning</li>
+<li>[OSDI ‘20] Heterogeneity-Aware Cluster Scheduling Policies for Deep Learning Workloads</li>
+<li>[OSDI ‘20] AntMan: Dynamic Scaling on GPU Clusters for Deep Learning</li>
+<li>[NSDI ‘20] Themis: Fair and Efficient GPU Cluster Scheduling</li>
+<li>[EuroSys ‘20] Balancing Efficiency and Fairness in Heterogeneous GPU Clusters for Deep Learning</li>
+<li>[NSDI ‘19] Tiresias: A GPU Cluster Manager for Distributed Deep Learning</li>
+<li>[ATC ‘19] Analysis of Large-Scale Multi-Tenant GPU Clusters for DNN Training Workloads</li>
+<li>[OSDI ‘18] Gandiva: Introspective cluster scheduling for deep learning</li>
+</ul>
+<h3 id="Memory-Management-for-Machine-Learning"><a href="#Memory-Management-for-Machine-Learning" class="headerlink" title="Memory Management for Machine Learning"></a><strong>Memory Management for Machine Learning</strong></h3><ul>
+<li>[ATC ‘22] Memory Harvesting in Multi-GPU Systems with Hierarchical Unified Virtual Memory</li>
+<li>[MobiSys ‘22] Memory-efficient DNN Training on Mobile Devices</li>
+<li>[HPCA ‘22] Enabling Efficient Large-Scale Deep Learning Training with Cache Coherent Disaggregated Memory Systems</li>
+<li>[ASPLOS ‘20] Capuchin: Tensor-based GPU Memory Management for Deep Learning</li>
+<li>[ASPLOS ‘20] SwapAdvisor: Push Deep Learning Beyond the GPU Memory Limit via Smart Swapping</li>
+<li>[ISCA ‘19] Interplay between Hardware Prefetcher and Page Eviction Policy in CPU-GPU Unified Virtual Memory</li>
+<li>[ISCA ‘18] Gist: Efficient Data Encoding for Deep Neural Network Training</li>
+<li>[PPoPP ‘18] SuperNeurons: Dynamic GPU Memory Management for Training Deep Neural Networks</li>
+<li>[MICRO ‘16] vDNN: Virtualized Deep Neural Networks for Scalable, Memory-Efficient Neural Network Design</li>
+</ul>
+<h3 id="Scheduling-amp-Resource-Management"><a href="#Scheduling-amp-Resource-Management" class="headerlink" title="Scheduling &amp; Resource Management"></a><strong>Scheduling &amp; Resource Management</strong></h3><ul>
+<li>[arXiv ‘22] EasyScale: Accuracy-consistent Elastic Training for Deep Learning</li>
+<li>[MLSys ‘22] VirtualFlow: Decoupling Deep Learning Models from the Underlying Hardware</li>
+<li>[SIGCOMM ‘22] Multi-resource interleaving for deep learning training</li>
+<li>[EuroSys ‘22] Out-Of-Order BackProp: An Effective Scheduling Technique for Deep Learning</li>
+<li>[ATC ‘21] Zico: Efficient GPU Memory Sharing for Concurrent DNN Training</li>
+<li>[NeurIPS ‘20] Nimble: Lightweight and Parallel GPU Task Scheduling for Deep Learning</li>
+<li>[OSDI’ 20] KungFu: Making Training in Distributed Machine Learning Adaptive</li>
+<li>[OSDI ‘20] PipeSwitch: Fast Pipelined Context Switching for Deep Learning Applications</li>
+<li>[MLSys ‘20] Salus: Fine-Grained GPU Sharing Primitives for Deep Learning Applications</li>
+<li>[SOSP ‘19] Generic Communication Scheduler for Distributed DNN Training Acceleration</li>
+<li>[EuroSys ‘18] Optimus: An Efficient Dynamic Resource Scheduler for Deep Learning Clusters</li>
+<li>[HPCA ‘18] Applied Machine Learning at Facebook: A Datacenter Infrastructure Perspective</li>
+</ul>
+<h3 id="Serving-Systems-amp-inference-acceleration"><a href="#Serving-Systems-amp-inference-acceleration" class="headerlink" title="Serving Systems (&amp; inference acceleration)"></a><strong>Serving Systems (&amp; inference acceleration)</strong></h3><ul>
+<li>[EuroSys ‘23] Fast and Efficient Model Serving Using Multi-GPUs with Direct-Host-Access</li>
+<li>[MICRO ‘22] DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation</li>
+<li>[ATC ‘22] Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing</li>
+<li>[OSDI ‘22] Orca: A Distributed Serving System for Transformer-Based Language Generation Tasks</li>
+<li>[OSDI ‘22] Achieving μs-scale Preemption for Concurrent GPU-accelerated DNN Inferences</li>
+<li>[ATC ‘21] INFaaS: Automated Model-less Inference Serving</li>
+<li>[OSDI ‘20] Serving DNNs like Clockwork: Performance Predictability from the Bottom Up</li>
+<li>[ISCA ‘20] MLPerf Inference Benchmark</li>
+<li>[SOSP ‘19] Nexus: A GPU Cluster Engine for Accelerating DNN-Based Video Analysis</li>
+<li>[ISCA ‘19] MnnFast: a fast and scalable system architecture for memory-augmented neural networks</li>
+<li>[EuroSys ‘19] μLayer: Low Latency On-Device Inference Using Cooperative Single-Layer Acceleration and Processor-Friendly Quantization</li>
+<li>[EuroSys ‘19] GrandSLAm: Guaranteeing SLAs for Jobs in Microservices Execution Frameworks</li>
+<li>[OSDI ‘18] Pretzel: Opening the Black Box of Machine Learning Prediction Serving Systems</li>
+<li>[NSDI ‘17] Clipper: A Low-Latency Online Prediction Serving System</li>
+</ul>
+<h3 id="Deep-Learning-Compiler"><a href="#Deep-Learning-Compiler" class="headerlink" title="Deep Learning Compiler"></a><strong>Deep Learning Compiler</strong></h3><ul>
+<li>[PLDI ‘21] DeepCuts: A Deep Learning Optimization Framework for Versatile GPU Workloads</li>
+<li>[OSDI ‘18] TVM: An Automated End-to-End Optimizing Compiler for Deep Learning</li>
+</ul>
+<h3 id="Very-Large-Models"><a href="#Very-Large-Models" class="headerlink" title="Very Large Models"></a><strong>Very Large Models</strong></h3><ul>
+<li>[arxiv ‘21] ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning</li>
+<li>[ATC ‘21] ZeRO-Offload: Democratizing Billion-Scale Model Training</li>
+<li>[FAST ‘21] Behemoth: A Flash-centric Training Accelerator for Extreme-scale DNNs</li>
+</ul>
+<h3 id="Deep-Learning-Recommendation-Models"><a href="#Deep-Learning-Recommendation-Models" class="headerlink" title="Deep Learning Recommendation Models"></a><strong>Deep Learning Recommendation Models</strong></h3><ul>
+<li>[OSDI ‘22] FAERY: An FPGA-accelerated Embedding-based Retrieval System</li>
+<li>[OSDI ‘22] Ekko: A Large-Scale Deep Learning Recommender System with Low-Latency Model Update</li>
+<li>[EuroSys ‘22] Fleche: An Efficient GPU Embedding Cache for Personalized Recommendations</li>
+<li>[ASPLOS ‘22] RecShard: statistical feature-based memory optimization for industry-scale neural recommendation</li>
+<li>[HPCA ‘22] Hercules: Heterogeneity-Aware Inference Serving for At-Scale Personalized Recommendation</li>
+<li>[MLSys ‘21] TT-Rec: Tensor Train Compression for Deep Learning Recommendation Model Embeddings</li>
+<li>[HPCA ‘21] Tensor Casting: Co-Designing Algorithm-Architecture for Personalized Recommendation Training</li>
+<li>[HPCA ‘21] Understanding Training Efficiency of Deep Learning Recommendation Models at Scale</li>
+<li>[ISCA ‘20] DeepRecSys: A System for Optimizing End-To-End At-scale Neural Recommendation Inference</li>
+<li>[HPCA ‘20] The Architectural Implications of Facebook’s DNN-based Personalized Recommendation</li>
+<li>[MICRO ‘19] TensorDIMM: A Practical Near-Memory Processing Architecture for Embeddings and Tensor Operations in Deep Learning</li>
+</ul>
+<h3 id="Hardware-Support-for-ML"><a href="#Hardware-Support-for-ML" class="headerlink" title="Hardware Support for ML"></a><strong>Hardware Support for ML</strong></h3><ul>
+<li>[ISCA ‘18] A Configurable Cloud-Scale DNN Processor for Real-Time AI</li>
+<li>[ISCA ‘17] In-Datacenter Performance Analysis of a Tensor Processing Unit</li>
+</ul>
+<h3 id="ML-at-Mobile-amp-Embedded-Systems"><a href="#ML-at-Mobile-amp-Embedded-Systems" class="headerlink" title="ML at Mobile &amp; Embedded Systems"></a><strong>ML at Mobile &amp; Embedded Systems</strong></h3><ul>
+<li>[MobiCom ‘20] SPINN: Synergistic Progressive Inference of Neural Networks over Device and Cloud</li>
+<li>[RTSS ‘19] Pipelined Data-Parallel CPU&#x2F;GPU Scheduling for Multi-DNN Real-Time Inference</li>
+<li>[ASPLOS ‘17] Neurosurgeon: Collaborative Intelligence Between the Cloud and Mobile Edge</li>
+</ul>
+<h3 id="ML-Techniques-for-Systems"><a href="#ML-Techniques-for-Systems" class="headerlink" title="ML Techniques for Systems"></a><strong>ML Techniques for Systems</strong></h3><ul>
+<li>[ICML ‘20] An Imitation Learning Approach for Cache Replacement</li>
+<li>[ICML ‘18] Learning Memory Access Patterns</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>lcy</span>
+                    </p>
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/MLsys/"># MLsys</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/01/01/my-2022/">my-2022</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© lcy | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

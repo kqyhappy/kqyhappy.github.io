@@ -1,3 +1,4 @@
+http://example.com/2023/01/14/reading-list/
 http://example.com/2023/01/01/my-2022/
 http://example.com/2022/12/27/2022-12/
 http://example.com/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/
@@ -13,5 +14,6 @@ http://example.com/tags/life/
 http://example.com/tags/reading-record/
 http://example.com/tags/hexo/
 http://example.com/tags/kubernetes/
+http://example.com/tags/MLsys/
 http://example.com/categories/personal/
 http://example.com/categories/public/
