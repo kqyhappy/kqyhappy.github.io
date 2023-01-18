@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Paper-ATC&#039;2022-GPULet - lcy&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lcy&#039;s blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lcy&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"><meta property="og:type" content="blog"><meta property="og:title" content="Paper-ATC&#039;2022-GPULet"><meta property="og:url" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"><meta property="og:site_name" content="lcy&#039;s blog"><meta property="og:description" content="link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg"><meta property="article:published_time" content="2023-01-14T13:16:46.000Z"><meta property="article:modified_time" content="2023-01-17T13:34:24.737Z"><meta property="article:author" content="lcy"><meta property="article:tag" content="paper"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"},"headline":"Paper-ATC'2022-GPULet","image":["http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg"],"datePublished":"2023-01-14T13:16:46.000Z","dateModified":"2023-01-17T13:34:24.737Z","author":{"@type":"Person","name":"lcy"},"publisher":{"@type":"Organization","name":"lcy's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/favicon.svg"}},"description":"link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"}</script><link rel="canonical" href="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Paper-ATC&#039;2022-GPULet - lcy&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="rgba(99, 187, 208, 0.9)"><meta name="application-name" content="lcy&#039;s blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="msapplication-TileColor" content="rgba(99, 187, 208, 0.9)"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lcy&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"><meta property="og:type" content="blog"><meta property="og:title" content="Paper-ATC&#039;2022-GPULet"><meta property="og:url" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"><meta property="og:site_name" content="lcy&#039;s blog"><meta property="og:description" content="link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg"><meta property="og:image" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg"><meta property="article:published_time" content="2023-01-14T13:16:46.000Z"><meta property="article:modified_time" content="2023-01-18T13:11:16.994Z"><meta property="article:author" content="lcy"><meta property="article:tag" content="paper"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"},"headline":"Paper-ATC'2022-GPULet","image":["http://example.com/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg","http://example.com/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg"],"datePublished":"2023-01-14T13:16:46.000Z","dateModified":"2023-01-18T13:11:16.994Z","author":{"@type":"Person","name":"lcy"},"publisher":{"@type":"Organization","name":"lcy's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/favicon.svg"}},"description":"link: Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX"}</script><link rel="canonical" href="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
   (function () {
       function switchTab() {
           if (!location.hash) {
@@ -30,73 +30,64 @@
       window.addEventListener('hashchange', switchTab, false);
   })();
   </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
-</head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="lcy&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-01-14T13:16:46.000Z" title="2023/1/14 21:16:46">2023-01-14</time>发表</span><span class="level-item"><time dateTime="2023-01-17T13:34:24.737Z" title="2023/1/17 21:34:24">2023-01-17</time>更新</span><span class="level-item">9 分钟读完 (大约1285个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Paper-ATC&#039;2022-GPULet</h1><div class="content"><p>link: <a target="_blank" rel="noopener" href="https://www.usenix.org/conference/atc22/presentation/choi-seungbeom">Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX</a></p>
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="lcy&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-01-14T13:16:46.000Z" title="2023/1/14 21:16:46">2023-01-14</time>发表</span><span class="level-item"><time dateTime="2023-01-18T13:11:16.994Z" title="2023/1/18 21:11:16">2023-01-18</time>更新</span><span class="level-item">9 分钟读完 (大约1285个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Paper-ATC&#039;2022-GPULet</h1><div class="content"><p>link: <a target="_blank" rel="noopener" href="https://www.usenix.org/conference/atc22/presentation/choi-seungbeom">Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX</a></p>
 <span id="more"></span>
+
 <center>
 <img src="/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg" style="padding:5px; display:inline;" width="90%">
 </center>
-<h3 id="1-abstract"><a class="markdownIt-Anchor" href="#1-abstract">#</a> 1. Abstract</h3>
-<p>本文以<strong>最大化资源利用率</strong>和<strong>任务吞吐量</strong>为目标，为多模型推断的 GPU 集群实现了一个在线推断请求调度框架，在物理 GPU 与在线的请求之间设计了 GPULet Scheduler 工具来将 GPU 的计算资源分割成 GPULet，在分割计算资源时，本文综合考虑了<strong>时间</strong>、<strong>空间</strong>上的 GPU 资源，以及每次处理请求的<strong>批次</strong>大小，并且将搜索成本降低到了实际的在线系统可接受的范围。该系统在处理多 DNN 场景时能够<strong>自发调节使用的 GPU 个数</strong>以节约资源，另外，该系统额外考虑到了不同的 DNN Model 在 GPU 上的并行推断产生的冲突问题，建立了干扰预测模型。</p>
-<h3 id="2-introduction"><a class="markdownIt-Anchor" href="#2-introduction">#</a> 2. Introduction</h3>
-<p>CPU 上下文切换的速度是微秒级别，而 GPU 是毫秒的级别。</p>
-<h3 id="3-background"><a class="markdownIt-Anchor" href="#3-background">#</a> 3. Background</h3>
-<p>在 Background 章节，作者从三个维度阐述了提高 GPU 利用率的方法。</p>
+
+
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>本文以<strong>最大化资源利用率</strong>和<strong>任务吞吐量</strong>为目标，为多模型推断的GPU集群实现了一个在线推断请求调度框架，在物理GPU与在线的请求之间设计了GPULet Scheduler工具来将GPU的计算资源分割成GPULet，在分割计算资源时，本文综合考虑了<strong>时间</strong>、<strong>空间</strong>上的GPU资源，以及每次处理请求的<strong>批次</strong>大小，并且将搜索成本降低到了实际的在线系统可接受的范围。该系统在处理多DNN场景时能够<strong>自发调节使用的GPU个数</strong>以节约资源，另外，该系统额外考虑到了不同的DNN Model在GPU上的并行推断产生的冲突问题，建立了干扰预测模型。</p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>CPU上下文切换的速度是微秒级别，而GPU是毫秒的级别。</p>
+<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>在Background章节，作者从三个维度阐述了提高GPU利用率的方法。</p>
 <ul>
-<li>
-<p>Batching-Aware ML Inference Serving</p>
-<p>与预先加载好数据的模型训练相比，模型推断不能实现 GPU 资源的高利用率的原因是在在线推断场景中，推断请求是在线产生的。人为地设置 GPU 处理推断任务时的批次大小，可以提高 GPU 内核的利用率。</p>
+<li><p>Batching-Aware ML Inference Serving</p>
+<p>与预先加载好数据的模型训练相比，模型推断不能实现GPU资源的高利用率的原因是在在线推断场景中，推断请求是在线产生的。人为地设置GPU处理推断任务时的批次大小，可以提高GPU内核的利用率。</p>
 </li>
-<li>
-<p>Temporal Scheduling for ML on GPUs</p>
-<p>作者介绍了<strong> Nexus</strong>，通过将 GPU 资源在时间上分片提供给不同批大小的模型来提高 GPU 的利用效率。</p>
-<p><strong>Nexus</strong> 采用<strong> SBP</strong> 算法。</p>
+<li><p>Temporal Scheduling for ML on GPUs</p>
+<p>作者介绍了<strong>Nexus</strong>，通过将GPU资源在时间上分片提供给不同批大小的模型来提高GPU的利用效率。</p>
+<p><strong>Nexus</strong>采用<strong>SBP</strong>算法。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg" width="80%">
 </center>
+
 </li>
-<li>
-<p>Spatial Sharing on GPU</p>
-<p>作者介绍了<strong> GSLICE</strong>，它的逻辑是根据推断结果的反馈来调整各个分区的资源占比，确定资源占比后启发式地调整批处理的大小，但 GSLICE 只针对单个 GPU。</p>
+<li><p>Spatial Sharing on GPU</p>
+<p>作者介绍了<strong>GSLICE</strong>，它的逻辑是根据推断结果的反馈来调整各个分区的资源占比，确定资源占比后启发式地调整批处理的大小，但GSLICE只针对单个GPU。</p>
 </li>
 </ul>
-<p>本文的目标是在<strong>空间</strong>、<strong>时间</strong>以及<strong>批次大小</strong>三维的基础分割 GPU 资源实现<strong>最大化资源利用率</strong>和<strong>最小化使用 GPU</strong>。作者在 background 章节另外提出了本文的两个 baseline，分别是时间 baseline 的<strong> SBP</strong> 算法和空间 baseline 的<strong> Greedy best-fit</strong> 算法。</p>
+<p>本文的目标是在<strong>空间</strong>、<strong>时间</strong>以及<strong>批次大小</strong>三维的基础分割GPU资源实现<strong>最大化资源利用率</strong>和<strong>最小化使用GPU</strong>。作者在background章节另外提出了本文的两个baseline，分别是时间baseline的<strong>SBP</strong>算法和空间baseline的<strong>Greedy best-fit</strong>算法。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg" width="80%">
 </center>
-<h3 id="4-motivation"><a class="markdownIt-Anchor" href="#4-motivation">#</a> 4. Motivation</h3>
-<ul>
-<li>
-<p>Pre-Experiment-1：推断任务的最佳<strong>批</strong>大小与 GPU 的<strong>空间分区</strong>之间存在紧密的联系。</p>
+
+<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><ul>
+<li><p>Pre-Experiment-1：推断任务的最佳<strong>批</strong>大小与GPU的<strong>空间分区</strong>之间存在紧密的联系。</p>
 <p>作者选取不同的模型</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg" width="80%">
 </center>
 </li>
-<li>
-<p>Pre-Experiment-2：<strong>时 / 空 / 批</strong>三维的搜索空间得到的推断任务调度最优解比<strong>时 / 批</strong>二维的搜索空间得到的推断任务调度最优解更优。</p>
+<li><p>Pre-Experiment-2：<strong>时&#x2F;空&#x2F;批</strong>三维的搜索空间得到的推断任务调度最优解比<strong>时&#x2F;批</strong>二维的搜索空间得到的推断任务调度最优解更优。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg" width="80%">
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg" width="80%">
 </center>
 </li>
-<li>
-<p>Pre-Experiment-3：在<strong>有效分割</strong>的前提下，时空 GPU 资源调度可以有效提高 GPU 的资源利用率，提高系统的吞吐量。</p>
+<li><p>Pre-Experiment-3：在<strong>有效分割</strong>的前提下，时空GPU资源调度可以有效提高GPU的资源利用率，提高系统的吞吐量。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg" width="80%">
 </center>
 </li>
-<li>
-<p>Pre-Experiment-4：<strong>不同</strong>的 Model 同时在一个 GPU 上进行推断任务时，由于存在<strong>资源争用</strong>问题，并行执行可能会存在额外的<strong>干扰</strong>开销。</p>
+<li><p>Pre-Experiment-4：<strong>不同</strong>的Model同时在一个GPU上进行推断任务时，由于存在<strong>资源争用</strong>问题，并行执行可能会存在额外的<strong>干扰</strong>开销。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg" width="80%">
-</center>
-</li>
+</center></li>
 </ul>
-<h3 id="5-design"><a class="markdownIt-Anchor" href="#5-design">#</a> 5. Design</h3>
-<ul>
-<li>
-<p>GPULet</p>
-<p>为了给不同的模型分配的 GPU 资源，作者引入了<strong> Gpulet</strong>，Gpulet 是建立在物理 GPU 上的一个虚拟的 GPU，它是 GPU 在<strong>空间</strong>和<strong>时间</strong>上分配的计算资源的集成。</p>
+<h3 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h3><ul>
+<li><p>GPULet</p>
+<p>为了给不同的模型分配的GPU资源，作者引入了<strong>Gpulet</strong>，Gpulet是建立在物理GPU上的一个虚拟的GPU，它是GPU在<strong>空间</strong>和<strong>时间</strong>上分配的计算资源的集成。</p>
 <blockquote>
 <p>For each trained ML model, a minimal performance profile is collected offline.</p>
 </blockquote>
@@ -104,28 +95,26 @@
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg" width="80%">
 </center>
 </li>
-<li>
-<p>Overview</p>
+<li><p>Overview</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg" width="80%">
 </center>
-<p><strong>Request Monitor：<strong>监视不同 Model 的 Request 频率，作为调度器调度的</strong>参考变量</strong>之一。</p>
-<p>**Gpulet Scheduler：** 综合配置文件中不同 Model 的时延、SLO 要求、Request 的到达频率，决定</p>
+
+<p><strong>Request Monitor：</strong>监视不同Model的Request频率，作为调度器调度的<strong>参考变量</strong>之一。</p>
+<p><strong>Gpulet Scheduler：</strong>综合配置文件中不同Model的时延、SLO要求、Request的到达频率，决定</p>
 <ul>
-<li>该 Model 的 Request 以何种<strong>批次大小</strong>执行。</li>
-<li>该 Model 的 Request 在<strong>哪块 GPU</strong> 上执行。</li>
-<li>该 Model 的 Request 在 GPU 的<strong>空间分区、时间分区</strong>的资源占用情况。</li>
+<li>该Model的Request以何种<strong>批次大小</strong>执行。</li>
+<li>该Model的Request在<strong>哪块GPU</strong>上执行。</li>
+<li>该Model的Request在GPU的<strong>空间分区、时间分区</strong>的资源占用情况。</li>
 </ul>
-<p>**Partition Manager：** 实现 GPU 的分区，并且周期性的根据 Request 的 Rate 进行调整。</p>
-<p>**Executor：** 实现 Scheduler 的决策，将 Request 分配到不同的 Gpulet 上执行。</p>
+<p><strong>Partition Manager：</strong>实现GPU的分区，并且周期性的根据Request的Rate进行调整。</p>
+<p><strong>Executor：</strong>实现Scheduler的决策，将Request分配到不同的Gpulet上执行。</p>
 </li>
-<li>
-<p>Challenge-1: Achieve Cost-effective scheduling</p>
-<p>本文实现的核心调度算法，目标是<strong>最大化系统的吞吐量</strong>的同时<strong>最小化资源消耗</strong>。相比二维的情况，三维显著增加了调度的搜索空间，因此作者引入了配置文件，记录了 Model 在不同的 batch size 下不同的<strong> Gpu 空间分区</strong>的时延大小。</p>
+<li><p>Challenge-1: Achieve Cost-effective scheduling</p>
+<p>本文实现的核心调度算法，目标是<strong>最大化系统的吞吐量</strong>的同时<strong>最小化资源消耗</strong>。相比二维的情况，三维显著增加了调度的搜索空间，因此作者引入了配置文件，记录了Model在不同的batch size下不同的<strong>Gpu空间分区</strong>的时延大小。</p>
 </li>
-<li>
-<p>Challenge-2: Dynamic reorganization</p>
-<p>当 Model 的 Request Rate 发生变化时，触发 GPULet 的<strong>重新调度</strong>。在 Gpu 上实现新的分区需要一定的代价开销，原文引用如下。解决的方法是周期性地</p>
+<li><p>Challenge-2: Dynamic reorganization</p>
+<p>当Model的Request Rate发生变化时，触发GPULet的<strong>重新调度</strong>。在Gpu上实现新的分区需要一定的代价开销，原文引用如下。解决的方法是周期性地</p>
 <blockquote>
 <p>Preparing a new partition includes spawning a new process, loading kernels used by PyTorch, loading required models, and warming up.</p>
 </blockquote>
@@ -133,18 +122,14 @@
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg" width="80%">
 </center>
 </li>
-<li>
-<p>Challenge-3: Interference prediction</p>
-<p>量化不同的模型在同一个物理的 GPU 上并行处理时的<strong>时延干扰损失</strong>，作者在衡量多个因素后选取了两个重要因素，通过<strong>线性回归</strong>判定 Model A 和 Model B 在同一块物理 GPU 上并行执行时的时延的<strong>额外开销</strong>，实验证明该错误率在 10% 左右。</p>
+<li><p>Challenge-3: Interference prediction</p>
+<p>量化不同的模型在同一个物理的GPU上并行处理时的<strong>时延干扰损失</strong>，作者在衡量多个因素后选取了两个重要因素，通过<strong>线性回归</strong>判定Model A和Model B在同一块物理GPU上并行执行时的时延的<strong>额外开销</strong>，实验证明该错误率在10%左右。</p>
 <center>
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg" width="80%">
     <img src="/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg" width="80%">
-</center>
-</li>
+</center></li>
 </ul>
-<h3 id="6-evaluation"><a class="markdownIt-Anchor" href="#6-evaluation">#</a> 6. Evaluation</h3>
-<h3 id="7-conclusion"><a class="markdownIt-Anchor" href="#7-conclusion">#</a> 7. Conclusion</h3>
-</div><div class="article-licensing box"><div class="licensing-title"><p>Paper-ATC&#039;2022-GPULet</p><p><a href="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/">http://example.com/2023/01/14/Paper-ATC-2022-GPULet/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lcy</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-01-14</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-01-17</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/paper/">paper</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/01/16/%E4%BD%9B%E7%BD%97%E4%BC%A6%E8%90%A8%E7%9A%84%E7%A5%9E%E5%A5%B3-%E6%88%91%E7%9A%84%E4%B8%80%E5%8D%83%E9%9B%B6%E4%B8%80%E5%A4%9C/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">佛罗伦萨的神女-我的一千零一夜</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/01/14/reading-list/"><span class="level-item">reading list</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right  order-3"><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="lcy&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 lcy</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+<h3 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h3><h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3></div><div class="article-licensing box"><div class="licensing-title"><p>Paper-ATC&#039;2022-GPULet</p><p><a href="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/">http://example.com/2023/01/14/Paper-ATC-2022-GPULet/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lcy</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-01-14</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-01-18</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/paper/">paper</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/01/16/%E4%BD%9B%E7%BD%97%E4%BC%A6%E8%90%A8%E7%9A%84%E7%A5%9E%E5%A5%B3-%E6%88%91%E7%9A%84%E4%B8%80%E5%8D%83%E9%9B%B6%E4%B8%80%E5%A4%9C/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">佛罗伦萨的神女-我的一千零一夜</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/01/14/reading-list/"><span class="level-item">reading list</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Abstract"><span class="level-left"><span class="level-item">1</span><span class="level-item">Abstract</span></span></a></li><li><a class="level is-mobile" href="#Introduction"><span class="level-left"><span class="level-item">2</span><span class="level-item">Introduction</span></span></a></li><li><a class="level is-mobile" href="#Background"><span class="level-left"><span class="level-item">3</span><span class="level-item">Background</span></span></a></li><li><a class="level is-mobile" href="#Motivation"><span class="level-left"><span class="level-item">4</span><span class="level-item">Motivation</span></span></a></li><li><a class="level is-mobile" href="#Design"><span class="level-left"><span class="level-item">5</span><span class="level-item">Design</span></span></a></li><li><a class="level is-mobile" href="#Evaluation"><span class="level-left"><span class="level-item">6</span><span class="level-item">Evaluation</span></span></a></li><li><a class="level is-mobile" href="#Conclusion"><span class="level-left"><span class="level-item">7</span><span class="level-item">Conclusion</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="lcy&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 lcy</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,
@@ -186,22 +171,6 @@
                 }
                 $('.justified-gallery').justifiedGallery();
             }
-        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
-            'HTML-CSS': {
-                matchFontHeight: false
-            },
-            SVG: {
-                matchFontHeight: false
-            },
-            CommonHTML: {
-                matchFontHeight: false
-            },
-            tex2jax: {
-                inlineMath: [
-                    ['$','$'],
-                    ['\\(','\\)']
-                ]
-            }
-        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
             loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
         });</script></body></html>
