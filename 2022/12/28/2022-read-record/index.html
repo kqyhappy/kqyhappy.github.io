@@ -1,317 +1,137 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>2022-read-record - lcy&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lcy&#039;s blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lcy&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="研一开学以来看过的书的记录。"><meta property="og:type" content="blog"><meta property="og:title" content="2022-read-record"><meta property="og:url" content="http://example.com/2022/12/28/2022-read-record/"><meta property="og:site_name" content="lcy&#039;s blog"><meta property="og:description" content="研一开学以来看过的书的记录。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2022-12-28T12:55:38.000Z"><meta property="article:modified_time" content="2023-01-17T13:38:43.061Z"><meta property="article:author" content="lcy"><meta property="article:tag" content="reading record"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/12/28/2022-read-record/"},"headline":"2022-read-record","image":["http://example.com/img/og_image.png"],"datePublished":"2022-12-28T12:55:38.000Z","dateModified":"2023-01-17T13:38:43.061Z","author":{"@type":"Person","name":"lcy"},"publisher":{"@type":"Organization","name":"lcy's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"研一开学以来看过的书的记录。"}</script><link rel="canonical" href="http://example.com/2022/12/28/2022-read-record/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
-    <meta name="author" content="lcy">
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-
-    <meta name="subtitle" content="v1">
-
-
-    <meta name="description" content="学习/科研/生活/阅读">
-
-
-
-<title>2022-read-record | lcy&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/image/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        
-    
-
-
-<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
-</head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Lcy&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Lcy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">2022-read-record</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">lcy</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">十二月 28, 2022&nbsp;&nbsp;20:55:38</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h3 id="2022-10"><a href="#2022-10" class="headerlink" title="2022.10"></a>2022.10</h3><p>《圣母》 秋吉理香子</p>
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
+</head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="lcy&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-12-28T12:55:38.000Z" title="2022/12/28 20:55:38">2022-12-28</time>发表</span><span class="level-item"><time dateTime="2023-01-17T13:38:43.061Z" title="2023/1/17 21:38:43">2023-01-17</time>更新</span><span class="level-item">7 分钟读完 (大约1075个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">2022-read-record</h1><div class="content"><p>研一开学以来看过的书的记录。</p>
+<span id="more"></span>
+<h3 id="202210"><a class="markdownIt-Anchor" href="#202210">#</a> 2022.10</h3>
+<p>《圣母》 秋吉理香子</p>
 <ul>
 <li>不太喜欢。看完圣母之后决心今年一年不看日本的小说。这本书内描述的感情阴暗、粘稠，深入母女之间过于幽深的关系。最近的状态希望看到一些视野更加开阔的作品。</li>
-<li>圣母的核心是一个诡计，母亲为了保护女儿，帮忙隐瞒女儿的杀人事实，作者诱导读者认为被保护的女儿其实是真正的女儿被性侵生下的小孩。但是我认为这样的trick并不高明，至少作为读者我认为被愚弄了。</li>
+<li>圣母的核心是一个诡计，母亲为了保护女儿，帮忙隐瞒女儿的杀人事实，作者诱导读者认为被保护的女儿其实是真正的女儿被性侵生下的小孩。但是我认为这样的 trick 并不高明，至少作为读者我认为被愚弄了。</li>
 <li>另外作者的设定也很老套，比如硬汉警察（男）和飒爽新人警探（女），可能类似的设定我会更愿意看汉尼拔……</li>
 </ul>
-<h3 id="2022-11"><a href="#2022-11" class="headerlink" title="2022.11"></a>2022.11</h3><p>《始于极限》 上野千鹤子</p>
+<h3 id="202211"><a class="markdownIt-Anchor" href="#202211">#</a> 2022.11</h3>
+<p>《始于极限》 上野千鹤子</p>
 <ul>
-<li><p>上野千鹤子和铃木凉美延续了一年、每个月一次的对话。作为年龄差可以作为母女的两个人，探讨的话题都很有意思。</p>
+<li>
+<p>上野千鹤子和铃木凉美延续了一年、每个月一次的对话。作为年龄差可以作为母女的两个人，探讨的话题都很有意思。</p>
 </li>
-<li><p>一个女性必定会被母亲塑造，根据母亲形成对性、自我、亲密关系的初步看法，上野在书中说到，女儿往往是母亲最尖锐的审判者，而强大的母亲对于女儿来说即是一种助力也是一种桎梏。</p>
+<li>
+<p>一个女性必定会被母亲塑造，根据母亲形成对性、自我、亲密关系的初步看法，上野在书中说到，女儿往往是母亲最尖锐的审判者，而强大的母亲对于女儿来说即是一种助力也是一种桎梏。</p>
 </li>
 </ul>
 <p>《从零开始的女性主义》 上野千鹤子</p>
 <ul>
-<li>通俗的女性主义读物，主要内容是”接受自己的软弱”、”你想要什么”和骂男的。</li>
+<li>通俗的女性主义读物，主要内容是 &quot;接受自己的软弱&quot;、&quot;你想要什么&quot; 和骂男的。</li>
 <li>因为是女性，因为是被社会塑造的性别，因为永远处于凝视之中，因为容易被太多东西牵绊而走向软弱，一个女性的成长之路势必会比男性复杂曲折很多，我恨自己的性别也爱自己的性别，如果我是男性我不会这么喜欢自己。</li>
 </ul>
 <p>《永别了，武器》 海明威</p>
 <ul>
 <li>宁静、隽永，我爱海明威但是我是女权所以对他的态度一直很矛盾。但是这本书写的很好，我认为他至少对文学很真诚。</li>
 </ul>
-<p>《奇想之年》琼·狄迪恩</p>
+<p>《奇想之年》琼・狄迪恩</p>
 <ul>
 <li>十一月看的最喜欢的书，在心碎和回忆中重拾自我。无法评价，个人色彩太过强烈的记录，流畅的可以一口气读完，很喜欢，应该以后会看很多遍。</li>
 <li>在书里体会到哀恸，但是那对我而言是安全的……</li>
 </ul>
-<p>《烦人的爱》 埃莱娜·费兰特</p>
+<p>《烦人的爱》 埃莱娜・费兰特</p>
 <ul>
 <li>总结到这本我发现了，我很愿意看一些探讨母女关系的小说。因为我对自己的母女关系很困惑，至少妈妈对我的爱绝不是无私的。</li>
 <li>埃莱娜的文学底色很灰暗。把母女关系和月经、童年、性串联在一起，母亲的一生，她的一生。作为女儿，在自己都不能保护自己的时候，能不能原谅母亲因为收到太多来自家庭的痛苦从而无法顾及她？作为女儿能不能接受母亲有别的情欲，而且那份情欲在衰老的身体上仍然鲜活地存在？这一切不是说和解两个字就能解决的。</li>
-<li>感觉男的弑父就行了，母女关系好tm复杂。。。。。。</li>
+<li>感觉男的弑父就行了，母女关系好 tm 复杂。。。。。。</li>
 </ul>
 <p>《地下室手记》 陀思妥耶夫斯基</p>
 <ul>
 <li>我喜欢陀思妥耶夫斯基疯狂澎湃的感情，永远不放过自己的自察，痛苦、敏锐。对于别的作者来说，语言可以是一种戏法或者是陷阱类似的东西，但是对于陀思妥耶夫斯基来说，堆彻的语言就是他本身。</li>
 <li>人的内心，对我们而言最重要的东西是什么呢？地下室手记认为是无法抑制的非理性瞬间。</li>
 </ul>
-
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>lcy</span>
-                    </p>
-                
-                
-                
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/reading-record/"># reading record</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/">2019-2022 dream record</a>
-            
-            
-            <a class="next" rel="next" href="/2022/12/27/2022-12/">2022-12</a>
-            
-        </section>
-
-
-    </article>
-</div>
-
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© lcy | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
-</body>
-
-</html>
+</div><div class="article-licensing box"><div class="licensing-title"><p>2022-read-record</p><p><a href="http://example.com/2022/12/28/2022-read-record/">http://example.com/2022/12/28/2022-read-record/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lcy</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-12-28</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-01-17</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/reading-record/">reading record</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">2019-2022 dream record</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/12/27/2022-12/"><span class="level-item">2022-12</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right  order-3"><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="lcy&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 lcy</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>lcy&#39;s blog • Posts by &#34;hexo&#34; tag</title>
+        <link>http://example.com</link>
+        <description>学习/科研/生活/阅读</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 24 Mar 2022 14:34:13 +0800</pubDate>
+        <lastBuildDate>Thu, 24 Mar 2022 14:34:13 +0800</lastBuildDate>
+        <category>life</category>
+        <category>reading record</category>
+        <category>hexo</category>
+        <category>kubernetes</category>
+        <category>MLsys</category>
+        <category>paper</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+            <title>hexo-command</title>
+            <link>http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+            <category>hexo</category>
+            <pubDate>Thu, 24 Mar 2022 14:34:13 +0800</pubDate>
+            <description><![CDATA[ &lt;hr&gt;
+&lt;h3 id=&#34;Hexo部署博客常用命令记录&#34;&gt;&lt;a href=&#34;#Hexo部署博客常用命令记录&#34; class=&#34;headerlink&#34; title=&#34;Hexo部署博客常用命令记录&#34;&gt;&lt;/a&gt;Hexo部署博客常用命令记录&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;常用命令组件&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;hexo clean &amp;amp; hexo generate &amp;amp; hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;清除缓存 &amp;amp; 渲染界面 &amp;amp; 部署至github&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;部署在本地4000端口上，可以在deploy前先进行预览&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新增文章&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;hexo n #title#&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;根据提示找到对应的md文件夹，修改内容，使用hexo clean &amp;amp; hexo generate &amp;amp; hexo deploy 部署&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

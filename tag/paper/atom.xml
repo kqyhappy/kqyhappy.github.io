@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://example.com</id>
+    <title>lcy&#39;s blog • Posts by &#34;paper&#34; tag</title>
+    <link href="http://example.com" />
+    <updated>2023-01-14T13:16:46.000Z</updated>
+    <category term="life" />
+    <category term="reading record" />
+    <category term="hexo" />
+    <category term="kubernetes" />
+    <category term="MLsys" />
+    <category term="paper" />
+    <entry>
+        <id>http://example.com/2023/01/14/Paper-ATC-2022-GPULet/</id>
+        <title>Paper-ATC&#39;2022-GPULet</title>
+        <link rel="alternate" href="http://example.com/2023/01/14/Paper-ATC-2022-GPULet/"/>
+        <content type="html">&lt;p&gt;link: &lt;a href=&#34;https://www.usenix.org/conference/atc22/presentation/choi-seungbeom&#34;&gt;Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing | USENIX&lt;/a&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/system-overview.jpg&#34; style=&#34;padding:5px; display:inline;&#34; width=&#34;90%&#34;&gt;
+&lt;/center&gt;
+
+
+&lt;h3 id=&#34;1-Abstract&#34;&gt;&lt;a href=&#34;#1-Abstract&#34; class=&#34;headerlink&#34; title=&#34;1. Abstract&#34;&gt;&lt;/a&gt;1. Abstract&lt;/h3&gt;&lt;p&gt;本文以&lt;strong&gt;最大化资源利用率&lt;/strong&gt;和&lt;strong&gt;任务吞吐量&lt;/strong&gt;为目标，为多模型推断的GPU集群实现了一个在线推断请求调度框架，在物理GPU与在线的请求之间设计了GPULet Scheduler工具来将GPU的计算资源分割成GPULet，在分割计算资源时，本文综合考虑了&lt;strong&gt;时间&lt;/strong&gt;、&lt;strong&gt;空间&lt;/strong&gt;上的GPU资源，以及每次处理请求的&lt;strong&gt;批次&lt;/strong&gt;大小，并且将搜索成本降低到了实际的在线系统可接受的范围。该系统在处理多DNN场景时能够&lt;strong&gt;自发调节使用的GPU个数&lt;/strong&gt;以节约资源，另外，该系统额外考虑到了不同的DNN Model在GPU上的并行推断产生的冲突问题，建立了干扰预测模型。&lt;/p&gt;
+&lt;h3 id=&#34;2-Introduction&#34;&gt;&lt;a href=&#34;#2-Introduction&#34; class=&#34;headerlink&#34; title=&#34;2. Introduction&#34;&gt;&lt;/a&gt;2. Introduction&lt;/h3&gt;&lt;p&gt;CPU上下文切换的速度是微秒级别，而GPU是毫秒的级别。&lt;/p&gt;
+&lt;h3 id=&#34;3-Background&#34;&gt;&lt;a href=&#34;#3-Background&#34; class=&#34;headerlink&#34; title=&#34;3. Background&#34;&gt;&lt;/a&gt;3. Background&lt;/h3&gt;&lt;p&gt;在Background章节，作者从三个维度阐述了提高GPU利用率的方法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Batching-Aware ML Inference Serving&lt;/p&gt;
+&lt;p&gt;与预先加载好数据的模型训练相比，模型推断不能实现GPU资源的高利用率的原因是在在线推断场景中，推断请求是在线产生的。人为地设置GPU处理推断任务时的批次大小，可以提高GPU内核的利用率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Temporal Scheduling for ML on GPUs&lt;/p&gt;
+&lt;p&gt;作者介绍了&lt;strong&gt;Nexus&lt;/strong&gt;，通过将GPU资源在时间上分片提供给不同批大小的模型来提高GPU的利用效率。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Nexus&lt;/strong&gt;采用&lt;strong&gt;SBP&lt;/strong&gt;算法。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/temporal-sharing.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+
+
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Spatial Sharing on GPU&lt;/p&gt;
+&lt;p&gt;作者介绍了&lt;strong&gt;GSLICE&lt;/strong&gt;，它的逻辑是根据推断结果的反馈来调整各个分区的资源占比，确定资源占比后启发式地调整批处理的大小，但GSLICE只针对单个GPU。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文的目标是在&lt;strong&gt;空间&lt;/strong&gt;、&lt;strong&gt;时间&lt;/strong&gt;以及&lt;strong&gt;批次大小&lt;/strong&gt;三维的基础分割GPU资源实现&lt;strong&gt;最大化资源利用率&lt;/strong&gt;和&lt;strong&gt;最小化使用GPU&lt;/strong&gt;。作者在background章节另外提出了本文的两个baseline，分别是时间baseline的&lt;strong&gt;SBP&lt;/strong&gt;算法和空间baseline的&lt;strong&gt;Greedy best-fit&lt;/strong&gt;算法。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/t-s.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+
+&lt;h3 id=&#34;4-Motivation&#34;&gt;&lt;a href=&#34;#4-Motivation&#34; class=&#34;headerlink&#34; title=&#34;4. Motivation&#34;&gt;&lt;/a&gt;4. Motivation&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Pre-Experiment-1：推断任务的最佳&lt;strong&gt;批&lt;/strong&gt;大小与GPU的&lt;strong&gt;空间分区&lt;/strong&gt;之间存在紧密的联系。&lt;/p&gt;
+&lt;p&gt;作者选取不同的模型&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig4.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Pre-Experiment-2：&lt;strong&gt;时&amp;#x2F;空&amp;#x2F;批&lt;/strong&gt;三维的搜索空间得到的推断任务调度最优解比&lt;strong&gt;时&amp;#x2F;批&lt;/strong&gt;二维的搜索空间得到的推断任务调度最优解更优。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/3d-search.jpg&#34; width=&#34;80%&#34;&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig5.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Pre-Experiment-3：在&lt;strong&gt;有效分割&lt;/strong&gt;的前提下，时空GPU资源调度可以有效提高GPU的资源利用率，提高系统的吞吐量。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig6.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Pre-Experiment-4：&lt;strong&gt;不同&lt;/strong&gt;的Model同时在一个GPU上进行推断任务时，由于存在&lt;strong&gt;资源争用&lt;/strong&gt;问题，并行执行可能会存在额外的&lt;strong&gt;干扰&lt;/strong&gt;开销。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig7.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5-Design&#34;&gt;&lt;a href=&#34;#5-Design&#34; class=&#34;headerlink&#34; title=&#34;5. Design&#34;&gt;&lt;/a&gt;5. Design&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;GPULet&lt;/p&gt;
+&lt;p&gt;为了给不同的模型分配的GPU资源，作者引入了&lt;strong&gt;Gpulet&lt;/strong&gt;，Gpulet是建立在物理GPU上的一个虚拟的GPU，它是GPU在&lt;strong&gt;空间&lt;/strong&gt;和&lt;strong&gt;时间&lt;/strong&gt;上分配的计算资源的集成。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For each trained ML model, a minimal performance profile is collected offline.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/gpulet.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Overview&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig8.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;strong&gt;Request Monitor：&lt;/strong&gt;监视不同Model的Request频率，作为调度器调度的&lt;strong&gt;参考变量&lt;/strong&gt;之一。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Gpulet Scheduler：&lt;/strong&gt;综合配置文件中不同Model的时延、SLO要求、Request的到达频率，决定&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;该Model的Request以何种&lt;strong&gt;批次大小&lt;/strong&gt;执行。&lt;/li&gt;
+&lt;li&gt;该Model的Request在&lt;strong&gt;哪块GPU&lt;/strong&gt;上执行。&lt;/li&gt;
+&lt;li&gt;该Model的Request在GPU的&lt;strong&gt;空间分区、时间分区&lt;/strong&gt;的资源占用情况。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Partition Manager：&lt;/strong&gt;实现GPU的分区，并且周期性的根据Request的Rate进行调整。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Executor：&lt;/strong&gt;实现Scheduler的决策，将Request分配到不同的Gpulet上执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Challenge-1: Achieve Cost-effective scheduling&lt;/p&gt;
+&lt;p&gt;本文实现的核心调度算法，目标是&lt;strong&gt;最大化系统的吞吐量&lt;/strong&gt;的同时&lt;strong&gt;最小化资源消耗&lt;/strong&gt;。相比二维的情况，三维显著增加了调度的搜索空间，因此作者引入了配置文件，记录了Model在不同的batch size下不同的&lt;strong&gt;Gpu空间分区&lt;/strong&gt;的时延大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Challenge-2: Dynamic reorganization&lt;/p&gt;
+&lt;p&gt;当Model的Request Rate发生变化时，触发GPULet的&lt;strong&gt;重新调度&lt;/strong&gt;。在Gpu上实现新的分区需要一定的代价开销，原文引用如下。解决的方法是周期性地&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Preparing a new partition includes spawning a new process, loading kernels used by PyTorch, loading required models, and warming up.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig11.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Challenge-3: Interference prediction&lt;/p&gt;
+&lt;p&gt;量化不同的模型在同一个物理的GPU上并行处理时的&lt;strong&gt;时延干扰损失&lt;/strong&gt;，作者在衡量多个因素后选取了两个重要因素，通过&lt;strong&gt;线性回归&lt;/strong&gt;判定Model A和Model B在同一块物理GPU上并行执行时的时延的&lt;strong&gt;额外开销&lt;/strong&gt;，实验证明该错误率在10%左右。&lt;/p&gt;
+&lt;center&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/interference.jpg&#34; width=&#34;80%&#34;&gt;
+    &lt;img src=&#34;/2023/01/14/Paper-ATC-2022-GPULet/fig10.jpg&#34; width=&#34;80%&#34;&gt;
+&lt;/center&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;6-Evaluation&#34;&gt;&lt;a href=&#34;#6-Evaluation&#34; class=&#34;headerlink&#34; title=&#34;6. Evaluation&#34;&gt;&lt;/a&gt;6. Evaluation&lt;/h3&gt;&lt;h3 id=&#34;7-Conclusion&#34;&gt;&lt;a href=&#34;#7-Conclusion&#34; class=&#34;headerlink&#34; title=&#34;7. Conclusion&#34;&gt;&lt;/a&gt;7. Conclusion&lt;/h3&gt;</content>
+        <category term="paper" />
+        <updated>2023-01-14T13:16:46.000Z</updated>
+    </entry>
+</feed>

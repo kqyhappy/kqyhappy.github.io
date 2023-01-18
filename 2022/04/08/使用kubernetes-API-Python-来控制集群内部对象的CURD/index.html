@@ -1,238 +1,50 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>使用kubernetes API(Python)来控制集群内部对象的CURD - lcy&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="lcy&#039;s blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="lcy&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="写在前面：依旧是疫情远程实验室中，不知道为什么我的 kubernetes 集群突然集体更换了 ip 地址，真的很诡异 desu… 重新配集群的话我会想死，最后使用了一个基于 Go 语言的二进制一键离线部署安装工具 sealos，基本上只要指定三个节点的地址，不过不知道为啥似乎只能使用 root 用户来进行操作（可能是前置的一些设置没有设置）。"><meta property="og:type" content="blog"><meta property="og:title" content="使用kubernetes API(Python)来控制集群内部对象的CURD"><meta property="og:url" content="http://example.com/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/"><meta property="og:site_name" content="lcy&#039;s blog"><meta property="og:description" content="写在前面：依旧是疫情远程实验室中，不知道为什么我的 kubernetes 集群突然集体更换了 ip 地址，真的很诡异 desu… 重新配集群的话我会想死，最后使用了一个基于 Go 语言的二进制一键离线部署安装工具 sealos，基本上只要指定三个节点的地址，不过不知道为啥似乎只能使用 root 用户来进行操作（可能是前置的一些设置没有设置）。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2022-04-08T14:07:45.000Z"><meta property="article:modified_time" content="2023-01-17T13:37:35.040Z"><meta property="article:author" content="lcy"><meta property="article:tag" content="kubernetes"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/"},"headline":"使用kubernetes API(Python)来控制集群内部对象的CURD","image":["http://example.com/img/og_image.png"],"datePublished":"2022-04-08T14:07:45.000Z","dateModified":"2023-01-17T13:37:35.040Z","author":{"@type":"Person","name":"lcy"},"publisher":{"@type":"Organization","name":"lcy's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"写在前面：依旧是疫情远程实验室中，不知道为什么我的 kubernetes 集群突然集体更换了 ip 地址，真的很诡异 desu… 重新配集群的话我会想死，最后使用了一个基于 Go 语言的二进制一键离线部署安装工具 sealos，基本上只要指定三个节点的地址，不过不知道为啥似乎只能使用 root 用户来进行操作（可能是前置的一些设置没有设置）。"}</script><link rel="canonical" href="http://example.com/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
-    <meta name="author" content="lcy">
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-
-    <meta name="subtitle" content="v1">
-
-
-    <meta name="description" content="学习/科研/生活/阅读">
-
-
-
-<title>使用kubernetes API(Python)来控制集群内部对象的CURD | lcy&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/image/favicon.ico">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
-    
-    
-        
-    
-
-
-<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
-</head>
-
-<body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
-
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">Lcy&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
-
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">Lcy&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/category">Categories</a>
-                
-                    <a class="menu-item" href="/tag">Tags</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">使用kubernetes API(Python)来控制集群内部对象的CURD</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">lcy</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">四月 8, 2022&nbsp;&nbsp;22:07:45</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <p>写在前面：依旧是疫情远程实验室中，不知道为什么我的kubernetes集群突然集体更换了ip地址，真的很诡异desu…重新配集群的话我会想死，最后使用了一个基于Go语言的二进制一键离线部署安装工具sealos，超级方便，基本上只要指定三个节点的地址，就可以自动配置了，不过不知道为啥似乎只能使用root用户来进行操作（可能是前置的一些设置没有设置）。</p>
-<p>sealos地址：<a target="_blank" rel="noopener" href="https://github.com/fanux/sealos">https://github.com/fanux/sealos</a></p>
-<p>使用sealos时三台虚拟机上要开启ssh服务，通过以下命令安装并且开放权限（我的系统是ubuntu20.04）</p>
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="lcy's blog" type="application/atom+xml">
+</head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="lcy&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-04-08T14:07:45.000Z" title="2022/4/8 22:07:45">2022-04-08</time>发表</span><span class="level-item"><time dateTime="2023-01-17T13:37:35.040Z" title="2023/1/17 21:37:35">2023-01-17</time>更新</span><span class="level-item">7 分钟读完 (大约1104个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">使用kubernetes API(Python)来控制集群内部对象的CURD</h1><div class="content"><p>写在前面：依旧是疫情远程实验室中，不知道为什么我的 kubernetes 集群突然集体更换了 ip 地址，真的很诡异 desu… 重新配集群的话我会想死，最后使用了一个基于 Go 语言的二进制一键离线部署安装工具 sealos，基本上只要指定三个节点的地址，不过不知道为啥似乎只能使用 root 用户来进行操作（可能是前置的一些设置没有设置）。</p>
+<span id="more"></span>
+<p>sealos 地址：<a target="_blank" rel="noopener" href="https://github.com/fanux/sealos">https://github.com/fanux/sealos</a></p>
+<p>使用 sealos 时三台虚拟机上要开启 ssh 服务，通过以下命令安装并且开放权限（我的系统是 ubuntu20.04）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt install ssh</span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 PermitRootLogin = <span class="built_in">yes</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">restart ssh 服务</span></span><br></pre></td></tr></table></figure>
-
 <p>以下是新的系统配置</p>
 <table>
 <thead>
 <tr>
-<th>ip地址</th>
+<th>ip 地址</th>
 <th>节点类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>192.168.2.113</td>
 <td>master</td>
 </tr>
@@ -244,88 +56,88 @@
 <td>192.168.2.115</td>
 <td>node</td>
 </tr>
-</tbody></table>
-<p>最近主要研究实现了怎么使用kubernetes的api接口来管理kubernetes集群，使用的语言是python，python-kubernetes-client的官方地址如下：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-client/python/tree/master/kubernetes">https://github.com/kubernetes-client/python/tree/master/kubernetes</a></p>
-<h3 id="引入kubernetes包"><a href="#引入kubernetes包" class="headerlink" title="引入kubernetes包"></a>引入kubernetes包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip install kubernetes</span></span><br><span class="line"><span class="keyword">import</span> kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下使用到了kubernetes官方库的config和client,因此可以这样写</span></span><br><span class="line"><span class="keyword">from</span> kubernetes <span class="keyword">import</span> config, client</span><br></pre></td></tr></table></figure>
-
-<h3 id="集群内部控制"><a href="#集群内部控制" class="headerlink" title="集群内部控制"></a>集群内部控制</h3><p>我搭建的系统是在pod内去修改kubernetes的资源，首先在对系统的修改之前，需要访问系统的配置文件，得到系统的相关配置</p>
+</tbody>
+</table>
+<p>最近主要研究实现了怎么使用 kubernetes 的 api 接口来管理 kubernetes 集群，使用的语言是 python，python-kubernetes-client 的官方地址如下：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-client/python/tree/master/kubernetes">https://github.com/kubernetes-client/python/tree/master/kubernetes</a></p>
+<h3 id="引入kubernetes包"><a class="markdownIt-Anchor" href="#引入kubernetes包">#</a> 引入 kubernetes 包</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pip install kubernetes</span></span><br><span class="line"><span class="keyword">import</span> kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下使用到了kubernetes官方库的config和client,因此可以这样写</span></span><br><span class="line"><span class="keyword">from</span> kubernetes <span class="keyword">import</span> config, client</span><br></pre></td></tr></table></figure>
+<h3 id="集群内部控制"><a class="markdownIt-Anchor" href="#集群内部控制">#</a> 集群内部控制</h3>
+<p>我搭建的系统是在 pod 内去修改 kubernetes 的资源，首先在对系统的修改之前，需要访问系统的配置文件，得到系统的相关配置</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config.load_incluster_config()</span><br><span class="line"><span class="comment"># incluster表示在节点内</span></span><br></pre></td></tr></table></figure>
-
-<p>得到系统配置后，我们可以通过建立相关的api创建、更新、访问相关资源，以下以项目中用到的Job和Server为例，在实际创建过程中，可能会遇到403错误，该错误可以通过设置rbac解决，使用的yaml如下：</p>
+<p>得到系统配置后，我们可以通过建立相关的 api 创建、更新、访问相关资源，以下以项目中用到的 Job 和 Server 为例，在实际创建过程中，可能会遇到 403 错误，该错误可以通过设置 rbac 解决，使用的 yaml 如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">rules:</span> <span class="comment"># 似乎是在这里添加权限</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;pods&quot;</span>, <span class="string">&quot;services&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;list&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;get&quot;</span>, <span class="string">&quot;delete&quot;</span>]</span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;batch&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;jobs&quot;</span>, <span class="string">&quot;jobs/status&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;list&quot;</span>, <span class="string">&quot;create&quot;</span>, <span class="string">&quot;get&quot;</span>, <span class="string">&quot;delete&quot;</span>]</span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-bind</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="创建和管理Job"><a href="#创建和管理Job" class="headerlink" title="创建和管理Job"></a>创建和管理Job</h4><p>job的api-group是batch，通过以下命令来创建相关的api，成功创建后就可以管理job资源</p>
+<h4 id="创建和管理job"><a class="markdownIt-Anchor" href="#创建和管理job">#</a> 创建和管理 Job</h4>
+<p>job 的 api-group 是 batch，通过以下命令来创建相关的 api，成功创建后就可以管理 job 资源</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">batch_v1 = client.BatchV1Api()</span><br></pre></td></tr></table></figure>
-
-<p><strong>创建job</strong></p>
-<p>删除job的逻辑写在创建job的时候，spec.ttlSecondsAfterFinished，代表job完工30秒后删除</p>
+<p><strong>创建 job</strong></p>
+<p>删除 job 的逻辑写在创建 job 的时候，spec.ttlSecondsAfterFinished，代表 job 完工 30 秒后删除</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_container</span>():</span><br><span class="line">    port_list = [<span class="number">8888</span>, <span class="number">8889</span>]</span><br><span class="line">    container_port_list = <span class="built_in">list</span>()</span><br><span class="line">    container_name = <span class="string">&quot;pi&quot;</span> + <span class="built_in">str</span>(uuid.uuid1())</span><br><span class="line">    <span class="keyword">for</span> port <span class="keyword">in</span> port_list:</span><br><span class="line">        container_port = <span class="built_in">int</span>(port)</span><br><span class="line">        c_port = client.V1ContainerPort(container_port=container_port)</span><br><span class="line">        container_port_list.append(c_port)</span><br><span class="line">    container = client.V1Container(</span><br><span class="line">        name=container_name,</span><br><span class="line">        image=<span class="string">&quot;lcy200077/exec:v1.1&quot;</span>,</span><br><span class="line">        ports=container_port_list</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> container</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_job_object</span>(<span class="params">node</span>):</span><br><span class="line">    <span class="comment"># Configurate Pod template container</span></span><br><span class="line">    container = create_container()</span><br><span class="line">    <span class="comment"># Create and configure a spec section</span></span><br><span class="line">    job_name = <span class="string">&#x27;pi&#x27;</span> + <span class="built_in">str</span>(uuid.uuid1())</span><br><span class="line">    template = client.V1PodTemplateSpec(</span><br><span class="line">        metadata=client.V1ObjectMeta(labels=&#123;<span class="string">&quot;app&quot;</span>: <span class="string">&quot;pi&quot;</span>&#125;),</span><br><span class="line">        spec=client.V1PodSpec(restart_policy=<span class="string">&quot;Never&quot;</span>, containers=[container], node_name=node))</span><br><span class="line">    <span class="comment"># Create the specification of deployment</span></span><br><span class="line">    spec = client.V1JobSpec(</span><br><span class="line">        template=template,</span><br><span class="line">        ttl_seconds_after_finished=<span class="number">30</span>,</span><br><span class="line">        backoff_limit=<span class="number">4</span>)</span><br><span class="line">    <span class="comment"># 三十秒后删除</span></span><br><span class="line">    <span class="comment"># Instantiate the job object</span></span><br><span class="line">    job = client.V1Job(</span><br><span class="line">        api_version=<span class="string">&quot;batch/v1&quot;</span>,</span><br><span class="line">        kind=<span class="string">&quot;Job&quot;</span>,</span><br><span class="line">        metadata=client.V1ObjectMeta(name=job_name),</span><br><span class="line">        spec=spec)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> job, job_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">create_job</span>(<span class="params">api_instance, job, job_name</span>):</span><br><span class="line">    api_response = api_instance.create_namespaced_job(</span><br><span class="line">        body=job,</span><br><span class="line">        namespace=<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Job created. status=&#x27;%s&#x27;&quot;</span> % <span class="built_in">str</span>(api_response.status))</span><br></pre></td></tr></table></figure>
-
-<p><strong>获取Job信息</strong></p>
+<p><strong>获取 Job 信息</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_job_status</span>(<span class="params">api_instance, job_name</span>):</span><br><span class="line">    job_completed = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> job_completed:</span><br><span class="line">        api_response = api_instance.read_namespaced_job_status(</span><br><span class="line">            name=job_name,</span><br><span class="line">            namespace=<span class="string">&quot;default&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> api_response.status.succeeded <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">or</span> \</span><br><span class="line">                api_response.status.failed <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            job_completed = <span class="literal">True</span></span><br><span class="line">        sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Job status=&#x27;%s&#x27;&quot;</span> % <span class="built_in">str</span>(api_response.status))</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建和管理service"><a href="#创建和管理service" class="headerlink" title="创建和管理service"></a>创建和管理service</h4><p>service采用manifest的方法创建，其中将service对应的job作为依赖项，当job被删除的时候，kubernetes的垃圾回收机制会自动回收掉依赖job的Service</p>
+<h4 id="创建和管理service"><a class="markdownIt-Anchor" href="#创建和管理service">#</a> 创建和管理 service</h4>
+<p>service 采用 manifest 的方法创建，其中将 service 对应的 job 作为依赖项，当 job 被删除的时候，kubernetes 的垃圾回收机制会自动回收掉依赖 job 的 Service</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_service</span>(<span class="params">api, job_name</span>):</span><br><span class="line">    batch_v1 = client.BatchV1Api()</span><br><span class="line">    job_response = batch_v1.read_namespaced_job_status(</span><br><span class="line">            name=job_name,</span><br><span class="line">            namespace=<span class="string">&quot;default&quot;</span></span><br><span class="line">    )</span><br><span class="line">    uid = job_response.metadata.uid</span><br><span class="line">    <span class="keyword">global</span> num</span><br><span class="line">    service_name = <span class="string">&quot;pi&quot;</span> + <span class="built_in">str</span>(uuid.uuid1())</span><br><span class="line">    node_p1 = <span class="number">30030</span> + num * <span class="number">2</span></span><br><span class="line">    node_p2 = <span class="number">30030</span> + num * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">    service_manifest = &#123;</span><br><span class="line">        <span class="string">&quot;apiVersion&quot;</span>: <span class="string">&quot;v1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;kind&quot;</span>: <span class="string">&quot;Service&quot;</span>,</span><br><span class="line">        <span class="string">&quot;metadata&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;labels&quot;</span>: &#123;<span class="string">&quot;name&quot;</span>: service_name&#125;,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: service_name,</span><br><span class="line">            <span class="string">&quot;resourceversion&quot;</span>: <span class="string">&quot;v1&quot;</span>,</span><br><span class="line">            <span class="string">&quot;ownerReferences&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;kind&quot;</span>: <span class="string">&quot;Job&quot;</span>,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: job_name,</span><br><span class="line">                <span class="string">&quot;apiVersion&quot;</span>: <span class="string">&quot;batch/v1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;uid&quot;</span>: uid</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;spec&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;NodePort&quot;</span>,</span><br><span class="line">            <span class="string">&quot;ports&quot;</span>: [</span><br><span class="line">                &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;p1&quot;</span>, </span><br><span class="line">                 <span class="string">&quot;port&quot;</span>: <span class="number">80</span>, </span><br><span class="line">                 <span class="string">&quot;protocol&quot;</span>: <span class="string">&quot;TCP&quot;</span>, </span><br><span class="line">                 <span class="string">&quot;targetPort&quot;</span>: <span class="number">8888</span>, </span><br><span class="line">                 <span class="string">&quot;nodePort&quot;</span>: node_p1</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;p2&quot;</span>, </span><br><span class="line">                 <span class="string">&quot;port&quot;</span>: <span class="number">81</span>, </span><br><span class="line">                 <span class="string">&quot;protocol&quot;</span>: <span class="string">&quot;TCP&quot;</span>, </span><br><span class="line">                 <span class="string">&quot;targetPort&quot;</span>: <span class="number">8889</span>, </span><br><span class="line">                 <span class="string">&quot;nodePort&quot;</span>: node_p2</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;selector&quot;</span>: &#123;<span class="string">&quot;job-name&quot;</span>: job_name&#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    service = api.create(body=service_manifest, namespace=<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Service &quot;</span> + service_name + <span class="string">&quot;created&quot;</span>)</span><br><span class="line">    num += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> node_p1, node_p2</span><br></pre></td></tr></table></figure>
-
 <p><strong>ownerReference</strong></p>
-<p>是依赖项，在spec中设置，一般来说kubernetes会自动配置，也可以手动配置，一个ownerReference需要以下几个参数，缺一不可</p>
+<p>是依赖项，在 spec 中设置，一般来说 kubernetes 会自动配置，也可以手动配置，一个 ownerReference 需要以下几个参数，缺一不可</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;ownerReferences&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;kind&quot;</span>: <span class="string">&quot;Job&quot;</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: job_name, </span><br><span class="line">    <span class="string">&quot;apiVersion&quot;</span>: <span class="string">&quot;batch/v1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;uid&quot;</span>: uid <span class="comment">#可以通过api get来获取</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-
-        </div>
-
-        
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>lcy</span>
-                    </p>
-                
-                
-                
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/kubernetes/"># kubernetes</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2022/12/27/2022-12/">2022-12</a>
-            
-            
-            <a class="next" rel="next" href="/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%88%90service/">k8s-如何将python项目部署成service</a>
-            
-        </section>
-
-
-    </article>
-</div>
-
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© lcy | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
-</body>
-
-</html>
+</div><div class="article-licensing box"><div class="licensing-title"><p>使用kubernetes API(Python)来控制集群内部对象的CURD</p><p><a href="http://example.com/2022/04/08/使用kubernetes-API-Python-来控制集群内部对象的CURD/">http://example.com/2022/04/08/使用kubernetes-API-Python-来控制集群内部对象的CURD/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>lcy</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-04-08</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-01-17</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/kubernetes/">kubernetes</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/12/27/2022-12/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">2022-12</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/03/24/k8s-%E5%A6%82%E4%BD%95%E5%B0%86python%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%88%90service/"><span class="level-item">k8s-如何将python项目部署成service</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right  order-3"><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="lcy&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 lcy</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
