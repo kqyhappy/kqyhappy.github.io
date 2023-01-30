@@ -5,14 +5,23 @@
         <link>http://example.com</link>
         <description>学习/科研/生活/阅读</description>
         <language>zh-CN</language>
-        <pubDate>Wed, 18 Jan 2023 21:36:54 +0800</pubDate>
-        <lastBuildDate>Wed, 18 Jan 2023 21:36:54 +0800</lastBuildDate>
+        <pubDate>Sun, 29 Jan 2023 16:48:50 +0800</pubDate>
+        <lastBuildDate>Sun, 29 Jan 2023 16:48:50 +0800</lastBuildDate>
         <category>life</category>
         <category>reading record</category>
+        <category>reading record, homework</category>
         <category>paper</category>
         <category>hexo</category>
         <category>kubernetes</category>
         <category>MLsys</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2023/01/29/AI-reading-homework/</guid>
+            <title>AI-reading-homework</title>
+            <link>http://example.com/2023/01/29/AI-reading-homework/</link>
+            <category>reading record, homework</category>
+            <pubDate>Sun, 29 Jan 2023 16:48:50 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/01/18/2023-01-reading-record/</guid>
             <title>2023-01-reading-record</title>
@@ -21,7 +30,6 @@
             <pubDate>Wed, 18 Jan 2023 21:36:54 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;23 年的阅读主题是女性主义、工具书，比如妇科和写作，今年比起美和真的感受，想获取更多的知识。如果在阅读上述书以外还有精力，读陀思妥耶夫斯基和现代政治哲学的书。今年要阅读更多的英文资料，读关于写作的书并且积极写作业。&lt;/p&gt;
 &lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
-&lt;h3 id=&#34;202212-202301&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#202212-202301&#34;&gt;#&lt;/a&gt; 2022.12 &amp;amp; 2023.01&lt;/h3&gt;
 &lt;h5 id=&#34;身体由我关于了不起的女性身体的一切&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#身体由我关于了不起的女性身体的一切&#34;&gt;#&lt;/a&gt; 《身体由我：关于了不起的女性身体的一切》 √&lt;/h5&gt;
 &lt;p&gt;四星，不给五星是因为作者的用药建议太过随便，以及里面太多过于传统的视角观点，有时候女性认为自己拥有的是性的权力，实际上只是性的资本而已。&lt;/p&gt;
 &lt;ul&gt;

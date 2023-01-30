@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "lcy's blog • All posts by \"reading record, homework\" tag",
+    "description": "学习/科研/生活/阅读",
+    "home_page_url": "http://example.com",
+    "items": [
+        {
+            "id": "http://example.com/2023/01/29/AI-reading-homework/",
+            "url": "http://example.com/2023/01/29/AI-reading-homework/",
+            "title": "AI-reading-homework",
+            "date_published": "2023-01-29T08:48:50.000Z",
+            "content_html": "",
+            "tags": [
+                "reading record, homework"
+            ]
+        }
+    ]
+}
