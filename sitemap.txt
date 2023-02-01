@@ -1,7 +1,8 @@
+http://example.com/2023/02/01/trash-bin/
 http://example.com/2023/01/29/AI-reading-homework/
+http://example.com/2023/01/01/my-2022/
 http://example.com/2023/01/18/2023-01-reading-record/
 http://example.com/2023/01/14/Paper-ATC-2022-GPULet/
-http://example.com/2023/01/01/my-2022/
 http://example.com/2022/12/28/2022-read-record/
 http://example.com/2023/01/14/reading-list/
 http://example.com/2022/12/28/2019-2022%E6%A2%A6%E5%A2%83%E8%AE%B0%E5%BD%95/
@@ -15,10 +16,11 @@ http://example.com/tag/index.html
 http://example.com/
 http://example.com/tags/life/
 http://example.com/tags/reading-record/
-http://example.com/tags/reading-record-homework/
-http://example.com/tags/paper/
 http://example.com/tags/hexo/
+http://example.com/tags/paper/
 http://example.com/tags/kubernetes/
 http://example.com/tags/MLsys/
+http://example.com/tags/trash-bin/
+http://example.com/tags/homework/
 http://example.com/categories/personal/
 http://example.com/categories/public/

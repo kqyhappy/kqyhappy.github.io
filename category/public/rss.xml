@@ -9,11 +9,12 @@
         <lastBuildDate>Thu, 24 Mar 2022 14:34:13 +0800</lastBuildDate>
         <category>life</category>
         <category>reading record</category>
-        <category>reading record, homework</category>
-        <category>paper</category>
         <category>hexo</category>
+        <category>paper</category>
         <category>kubernetes</category>
         <category>MLsys</category>
+        <category>trash-bin</category>
+        <category>homework</category>
         <item>
             <guid isPermalink="true">http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
             <title>hexo-command</title>
