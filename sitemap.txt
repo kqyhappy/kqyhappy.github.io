@@ -15,9 +15,9 @@ http://example.com/tag/index.html
 http://example.com/
 http://example.com/tags/life/
 http://example.com/tags/reading-record/
-http://example.com/tags/hexo/
 http://example.com/tags/paper/
 http://example.com/tags/kubernetes/
+http://example.com/tags/hexo/
 http://example.com/tags/MLsys/
 http://example.com/tags/trash-bin/
 http://example.com/categories/personal/
