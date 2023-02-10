@@ -1,5 +1,4 @@
 http://example.com/2023/02/01/trash-bin/
-http://example.com/2023/01/29/AI-reading-homework/
 http://example.com/2023/01/01/my-2022/
 http://example.com/2023/01/18/2023-01-reading-record/
 http://example.com/2023/01/14/Paper-ATC-2022-GPULet/
@@ -21,6 +20,5 @@ http://example.com/tags/paper/
 http://example.com/tags/kubernetes/
 http://example.com/tags/MLsys/
 http://example.com/tags/trash-bin/
-http://example.com/tags/homework/
 http://example.com/categories/personal/
 http://example.com/categories/public/
