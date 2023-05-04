@@ -1,8 +1,9 @@
+http://example.com/2023/04/24/2023-04-reading-record/
+http://example.com/2023/02/26/2023-02-reading-record/
+http://example.com/2023/03/28/2023-03-reading-record/
+http://example.com/2023/01/18/2023-01-reading-record/
 http://example.com/2023/01/01/my-2022/
 http://example.com/2023/03/30/%E5%86%99%E5%9C%A8%E4%B8%89%E6%9C%88%E6%9C%AB/
-http://example.com/2023/03/28/2023-03-reading-record/
-http://example.com/2023/02/26/2023-02-reading-record/
-http://example.com/2023/01/18/2023-01-reading-record/
 http://example.com/2023/02/01/trash-bin/
 http://example.com/2023/01/14/Paper-ATC-2022-GPULet/
 http://example.com/2022/12/28/2022-read-record/
@@ -18,9 +19,9 @@ http://example.com/tag/index.html
 http://example.com/
 http://example.com/tags/life/
 http://example.com/tags/reading-record/
-http://example.com/tags/paper/
 http://example.com/tags/hexo/
 http://example.com/tags/kubernetes/
+http://example.com/tags/paper/
 http://example.com/tags/MLsys/
 http://example.com/tags/trash-bin/
 http://example.com/categories/personal/

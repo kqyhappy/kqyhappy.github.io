@@ -1,26 +1,21 @@
 <?xml version="1.0"?>
-<rss version="2.0">
-    <channel>
-        <title>lcy&#39;s blog • Posts by &#34;hexo&#34; tag</title>
-        <link>http://example.com</link>
-        <description>学习/科研/生活/阅读</description>
-        <language>zh-CN</language>
-        <pubDate>Thu, 24 Mar 2022 14:34:13 +0800</pubDate>
-        <lastBuildDate>Thu, 24 Mar 2022 14:34:13 +0800</lastBuildDate>
-        <category>life</category>
-        <category>reading record</category>
-        <category>hexo</category>
-        <category>kubernetes</category>
-        <category>paper</category>
-        <category>MLsys</category>
-        <category>trash-bin</category>
-        <item>
-            <guid isPermalink="true">http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
-            <title>hexo-command</title>
-            <link>http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
-            <category>hexo</category>
-            <pubDate>Thu, 24 Mar 2022 14:34:13 +0800</pubDate>
-            <description><![CDATA[ &lt;hr&gt;
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://example.com</id>
+    <title>lcy&#39;s blog • Posts by &#34;public&#34; category</title>
+    <link href="http://example.com" />
+    <updated>2022-03-24T06:34:13.000Z</updated>
+    <category term="life" />
+    <category term="reading record" />
+    <category term="hexo" />
+    <category term="kubernetes" />
+    <category term="paper" />
+    <category term="MLsys" />
+    <category term="trash-bin" />
+    <entry>
+        <id>http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
+        <title>hexo-command</title>
+        <link rel="alternate" href="http://example.com/2022/03/24/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+        <content type="html">&lt;hr&gt;
 &lt;h3 id=&#34;hexo部署博客常用命令记录&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#hexo部署博客常用命令记录&#34;&gt;#&lt;/a&gt; Hexo 部署博客常用命令记录&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -36,7 +31,8 @@
 &lt;p&gt;根据提示找到对应的 md 文件夹，修改内容，使用 hexo clean &amp;amp; hexo generate &amp;amp; hexo deploy 部署&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
- ]]></description>
-        </item>
-    </channel>
-</rss>
+</content>
+        <category term="hexo" />
+        <updated>2022-03-24T06:34:13.000Z</updated>
+    </entry>
+</feed>
