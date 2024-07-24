@@ -9,10 +9,11 @@
         <lastBuildDate>Fri, 08 Apr 2022 22:07:45 +0800</lastBuildDate>
         <category>reading record</category>
         <category>life</category>
-        <category>hexo</category>
         <category>paper</category>
+        <category>hexo</category>
         <category>kubernetes</category>
         <category>MLsys</category>
+        <category>ospp</category>
         <item>
             <guid isPermalink="true">http://example.com/2022/04/08/%E4%BD%BF%E7%94%A8kubernetes-API-Python-%E6%9D%A5%E6%8E%A7%E5%88%B6%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E5%AF%B9%E8%B1%A1%E7%9A%84CURD/</guid>
             <title>使用kubernetes API(Python)来控制集群内部对象的CURD</title>
